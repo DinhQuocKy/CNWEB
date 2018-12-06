@@ -136,11 +136,13 @@ $(document).ready(function(){
 
 		else  
 		{
-
+			var maHD=$('#maHD').val();
+			var maNV=$('#maNV').text();
+			var tenKH = $('#tenKH').val();
 			$.ajax({
 				url:"insertBill.php",  
 				method:"POST",  
-				data:$('#insert_form').serialize() ,  
+				data:{maHD: maHD, maNV: maNV, tenKH: tenKH, data: dataItems},  
 				success:function(data){  
 					$('#insert_form')[0].reset();  
 					$('#add_data_Modal').modal('hide');  
