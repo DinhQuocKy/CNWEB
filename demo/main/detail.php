@@ -6,7 +6,7 @@
     variable: variablename
     class: ClassName
     */
-    if(isset($_GET['id'])){
+    
         class Detail extends Connection{
         private $itemID="";
         private $tableName="";
@@ -30,18 +30,19 @@
             $row = $result->fetch(PDO::FETCH_ASSOC);
 
             $html="<br>";
-            $html.="<div class=\"panel-group\">";
+            $html.="<form>";
             foreach($row as $keys => $values){
-                $html.="<div class=\"panel panel-primary\">";
-                    $html.="<div style=\"font-size:20px;\" class=\"panel-heading\">".$keys."</div>";
-                    $html.="<div class=\"panel-body\">".$values."</div>";
-                $html.="</div><br>";
+            $html.="<div class=\"form-group row\">";
+               $html .="<label class=\"col-sm-3 col-form-label\">$keys</label><div class=\"col-sm-8\">";
+               $html .="<input type = \"text\" value =\"$values\" class =\"form-control\"></div>";
+               $html .="<br>";
+            $html.="</div>";
                 
             }
-            $html.="</div>";
+            $html .="</form>";
             echo $html;
         }
 
-        }
+        
     } 
 ?>

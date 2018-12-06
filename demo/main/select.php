@@ -39,7 +39,7 @@
 	          	var data = google.visualization.arrayToDataTable([
 		            ['Tên', 'Số lượng'],";
 		    foreach ($row as $key => $value) { 
-		        $html.="['".$value['Name'] ."',". $value['Quantity']. "],";
+		        $html.="['".$value['Name'] ."',". $value['Discription']. "],";
 		   	}
 	      	rtrim($html,',');
 		    

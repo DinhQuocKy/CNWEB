@@ -66,18 +66,7 @@
 				<!-- END STYLE CUSTOMIZER -->
 				<!-- BEGIN PAGE HEADER-->
 				<h3 class="page-title">
-                <?php 
-    //             session_start();
-    //             if(!isset($_SESSION['name']))
-				// {
-				// 	echo "<META http-equiv='refresh' content='0;URL=http://localhost:8080/webtech/demo/includes/Login/login.php'>";
-				// }
-
-                include_once '../includes/indexmanagement.php';
-                if(!isset($_SESSION['name']))
-				{
-					echo "<META http-equiv='refresh' content='0;URL=http://localhost:8080/webtech/demo/includes/Login/login.php'>";
-				}
+                <?php include_once '../includes/indexmanagement.php';
                     echo $indexmanagement->getPageTitle();
                 ?></h3>
 				<div class="page-bar">
@@ -90,15 +79,45 @@
 				<!-- END PAGE HEADER-->
 
                 <!--- truy vấn Php router để xuất page content ở đây -->
-                
-				<?php include_once 'routing.php';?>
 
+				<?php include_once 'routing.php';
+				include_once"pops-up.php";
 
-                <!-- kết thúc page content-->
+				?>
+         <!-- kết thúc page content-->
 			</div>
     </div>
 	</div>
 </div>
     <!-- End Content -->
 
-<?php include '../includes/footer.php';?>
+<script type="text/javascript">
+	
+$(document).on('click', '.view_data', function(){
+  //$('#dataModal').modal();
+	var idItem = $(this).attr("id");
+	var idUrl= <?php echo $_GET['id']; ?>;
+	$.ajax({
+		url:"selectDetail.php",
+		method:"POST",
+		data:{idItem:idItem,idUrl:idUrl},
+		success:function(data){
+			$('#detail').html(data);
+			$('#myModal').modal('show');
+			}
+	});
+});
+$(document).on('click', '.delete_data', function(){
+  //$('#dataModal').modal();
+	var idItem = $(this).attr("id");
+	var idUrl= <?php echo $_GET['id']; ?>;
+	$.ajax({
+		url:"delete.php",
+		method:"POST",
+		data:{idItem:idItem,idUrl:idUrl},
+		success:function(data){
+			$('.contentTbody').html(data);
+		}
+	});
+});
+</script>

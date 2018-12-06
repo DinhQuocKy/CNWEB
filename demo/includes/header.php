@@ -1,5 +1,3 @@
-<?php session_start(); ?>
-<p style="font-size: 20px;"></p>
 <!DOCTYPE html>
 <!-- 
 Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
@@ -27,7 +25,6 @@ License: You must have a valid license purchased only from themeforest(the above
 <meta content="" name="author"/>
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 <link href="../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
 <link href="../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -49,6 +46,15 @@ License: You must have a valid license purchased only from themeforest(the above
 <link href="../../assets/admin/layout2/css/custom.css" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 <link rel="shortcut icon" href="favicon.ico"/>
+
+
+<!--Button Detail CSS,JS-->
+<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+   <script src="/scripts/jquery.min.js"></script>
+   <script src="/bootstrap/js/bootstrap.min.js"></script>
+
+   <!-- ajax -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -82,7 +88,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		<!-- END RESPONSIVE MENU TOGGLER -->
 		<!-- BEGIN PAGE ACTIONS -->
 		<!-- DOC: Remove "hide" class to enable the page header actions -->
-		<!-- <div class="page-actions hide">
+		<div class="page-actions hide">
 			<div class="btn-group">
 				<button type="button" class="btn btn-circle red-pink dropdown-toggle" data-toggle="dropdown">
 				<i class="icon-bar-chart"></i>&nbsp;<span class="hidden-sm hidden-xs">New&nbsp;</span>&nbsp;<i class="fa fa-angle-down"></i>
@@ -146,10 +152,21 @@ License: You must have a valid license purchased only from themeforest(the above
 					</li>
 				</ul>
 			</div>
-		</div> -->
+		</div>
 		<!-- END PAGE ACTIONS -->
 		<!-- BEGIN PAGE TOP -->
 		<div class="page-top">
+			<!-- BEGIN HEADER SEARCH BOX -->
+			<!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->
+			<form class="search-form search-form-expanded" action="extra_search.html" method="GET">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Search..." name="query">
+					<span class="input-group-btn">
+					<a href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a>
+					</span>
+				</div>
+			</form>
+			<!-- END HEADER SEARCH BOX -->
 			<!-- BEGIN TOP NAVIGATION MENU -->
 			<div class="top-menu">
 				<ul class="nav navbar-nav pull-right">
@@ -160,14 +177,7 @@ License: You must have a valid license purchased only from themeforest(the above
 					<li class="dropdown dropdown-dark dropdown-user">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 						<span class="username username-hide-on-mobile">
-							<?php
-								if(isset($_SESSION['name'])){
-									echo $_SESSION['name'];
-								}
-								else
-									echo 'Admin';
-							?>
-						 </span>
+						Nick </span>
 						<i class="fa fa-angle-down"></i>
 						</a>
 						<ul class="dropdown-menu dropdown-menu-default">
@@ -179,8 +189,8 @@ License: You must have a valid license purchased only from themeforest(the above
 							<li class="divider">
 							</li>
 							<li>
-								<a  href="../includes/Login/login.php?mod=1">
-								<i class="icon-key"></i> Đăng xuất.</a>
+								<a href="../includes/login.php">
+								<i class="icon-key"></i> Log Out </a>
 							</li>
 						</ul>
 					</li>
@@ -216,7 +226,7 @@ License: You must have a valid license purchased only from themeforest(the above
 						<a href="../main/index.php">
 						<i class="icon-home"></i>
 						<span class="title">Trang Chủ</span>
-						 <span class="selected"></span>
+						<span class="selected"></span>
 						</a>
 					</li>
 					<li <?php if(isset($_GET['id']) && ($_GET['id']== 100 || $_GET['id']== 101 || $_GET['id']== 102)) echo'class="active"';?>>
@@ -249,14 +259,25 @@ License: You must have a valid license purchased only from themeforest(the above
 						
 						</ul>
 					</li>
-					<li <?php if(isset($_GET['id']) && $_GET['id']== 400) echo'class="active"';?>>
+					<li <?php if(isset($_GET['id']) && ($_GET['id']== 400 || $_GET['id']== 401 || $_GET['id']== 402)) echo'class="active"';?>>
 						<a href="../main/index.php?id=400">
-						<i class="fa fa-camera-retro"></i>
-						<span class="title">Thư Viện Ảnh</span>
-						<span <?php if(isset($_GET['id']) && $_GET['id'] == 400){echo'class="selected"';}else echo'class="arrow"';?>></span>
+						<i class="fa fa-cutlery"></i>
+						<span class="title">Hóa Đơn</span>
+						<span <?php if(isset($_GET['id']) && ($_GET['id']== 400 || $_GET['id']== 401 || $_GET['id']== 402)){echo'class="selected"';}else echo'class="arrow"';?>></span>
 						</a>
 						<ul class="sub-menu">
-							
+							<li <?php if(isset($_GET['id']) && $_GET['id']== 401)echo'class="active"';?> ><a href="../main/index.php?id=401"><i class="fa fa-spoon"></i><span class="title">Đã Thanh Toán</span></a></li>
+							<li <?php if(isset($_GET['id']) && $_GET['id']== 402)echo'class="active"';?> ><a href="../main/index.php?id=402"><i class="fa fa-coffee" aria-hidden="true"></i><span class="title">Chưa Thanh Toán</span></a></li>
+						</ul>
+					</li>
+					<li <?php if(isset($_GET['id']) && $_GET['id']== 500) echo'class="active"';?>>
+						<a href="../main/index.php?id=500">
+						<i class="fa fa-shopping-cart"></i>
+						<span class="title">Giỏ Hàng</span>
+						<span <?php if(isset($_GET['id']) && $_GET['id'] == 500){echo'class="selected"';}else echo'class="arrow"';?>></span>
+						</a>
+						<ul class="sub-menu">
+							<!-- Để submenu-->
 						</ul>
 					</li>
 					<li <?php if(isset($_GET['id']) && $_GET['id']== 600) echo'class="active"';?>>

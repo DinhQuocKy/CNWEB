@@ -1,11 +1,13 @@
-<?php
-include '../includes/connection.php';
-
+﻿<?php
+ include '../includes/connection.php';
 class ContentSelectAll extends Connection
 {
 	public function execute($tablename)
 	{
 		return $this->query("SELECT * FROM $tablename");
+	}
+	public function executeCondition($tablename,$condition){
+		return $this->query("SELECT * FROM $tablename WHERE $condition");
 	}
 }
 class ContentList extends ContentSelectAll
@@ -15,13 +17,13 @@ class ContentList extends ContentSelectAll
 	{
 		$html = "";
 			$html .= "</tbody>";
-		$html .= "</table>";
+		$html .= "</div></table>";
 		return $html;
 	}
 	function createHeader()
 	{
 		$html = "";
-		$html .= "<table class=\"table table-advance\" id=\"table1\">";
+		$html .= "<table class=\"table table-advance\" id=\"table1\"><div id=\"tableA\">";
             $html .= "<thead>";
 				$html .= "<tr>";		
 				if ($this->result != ""){
@@ -34,38 +36,51 @@ class ContentList extends ContentSelectAll
 				$html.="<th style=\"text-align:center;\">Actions</th>";
 				$html .= "</tr>";
 			$html .= "</thead>";
-		$html .= "<tbody>";
+		$html .= "<tbody class=\"contentTbody\">";
 		return $html;
 	}
 	public function execute($tablename)
 	{
-		$html = "";	
-		//$url = $_SERVER['REQUEST_URI'];
+		include_once "addItem.php";
+		$html = "<br/>";	
 		$id = $_GET['id'];
-		if ($id == 100 && $tablename == "food") $id=101;
-		if ($id == 100 && $tablename == "drink") $id=102;
 		$this->result = parent::execute($tablename);
 		$columncount = $this->result->columnCount();
 
 		$html .= $this->createHeader();
+		foreach($this->result as $array)
+		{	
+			for ($i=0 ; $i<$columncount ; $i++){
+				$html .= "<td>".$array[$i]."</td>";
+			}
 		
+			$html.="<td style=\"text-align:center;\"><button class = \"btn btn-info view_data\" data-toggle = \"modal\" data-target = \"#myModal\" id=\"$array[0]\">Xem chi tiết</button><button class = \"btn btn-danger delete_data\" id=\"$array[0]\">Xóa</button></td>";
+			$html .= "</tr>";
+		}
+		$html .= $this->createFooter();
+		return $html;
+	}
+	public function executeCondition($tablename,$condition)
+	{
+		include_once "addItem.php";
+		$html = "<br/>";	
+		$id = $_GET['id'];
+		$this->result = parent::executeCondition($tablename,$condition);
+		$columncount = $this->result->columnCount();
+		$html .= $this->createHeader();
 		foreach($this->result as $array)
 		{	
 			$html .= "<tr>";
 			for ($i=0 ; $i<$columncount ; $i++){
 				$html .= "<td>".$array[$i]."</td>";
 			}
-			/*Hơi rối xíu thông cảm bữa nào tui optimize lại ahihi*/
-			$html.="<td style=\"text-align:center;\"><a href=\"index.php?id=$id&action=delete&itemid=$array[0]\" class=\"btn btn-danger\">Delete</a><a href=\"index.php?id=$id&action=detail&itemid=$array[0]\" class=\"btn btn-info\">Detail</a><a href=\"index.php?id=$id&action=update&itemid=$array[0]\" class=\"btn btn-warning\">Update</a></td>";
-			$html .= "</tr>";
+				$html.="<td style=\"text-align:center;\"><button class = \"btn btn-info view_data\" data-toggle = \"modal\" data-target = \"#myModal\" id=\"$array[0]\">Xem chi tiết</button><button class = \"btn btn-danger delete_data\" id=\"$array[0]\">Xóa</button></td>";
+				$html .= "</tr>";
 		}
 
 		$html .= $this->createFooter();
-		
-		$html .= "<a href=\"index.php?id=".$id."&action=add\" class=\"btn btn-success\" style=\"float:right;\">Add</a>";
 		return $html;
 	}
-
 	public function executeImages($tablename, $name)
 	{
 		$html = "";
