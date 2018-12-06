@@ -93,7 +93,7 @@ class ContentList extends ContentSelectAll
 		$this->result = parent::execute($tablename);
 		$columncount = $this->result->columnCount();
 		$cnt = 0;
-		$html.="<tbody class=\"danhsach\">";
+		$html.="<tbody class=\"danhsach$tablename\">";
 		foreach($this->result as $array)
 		{	
 			if($cnt==0){

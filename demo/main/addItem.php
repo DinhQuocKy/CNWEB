@@ -208,7 +208,8 @@ $(document).ready(function(){
 	$('.timkiem').keyup(function() {
 		var txt = $('.timkiem').val();
 		$.post('searchTest.php', {data: txt}, function (data) {
-			$('.danhsach').html(data);
+			 // $('.danhsachdrink').html(data);
+			 $('.danhsachfood').html(data);
 		})
 	})
 });
