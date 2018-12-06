@@ -8,6 +8,13 @@
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_data_Modal">
 	Thêm
 </button>
+<?php 
+	if($_GET['id']==500){
+?>
+	<br><br><input type="text" class="timkiem form-control">
+<?php
+	}
+?>
 <br/>
 <!-- Modal -->
 <div id="add_data_Modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -175,11 +182,9 @@ $(document).ready(function(){
 				}
 			}); 
 		} 
-		
-		});
+	});
 	$('#insert_form').on("click",".addTemp2",function(event){ 
-		if($('#soLuongMon').val() == "")  
-		{  
+		if($('#soLuongMon').val() == "")  {  
 			alert("Nhập số lượng bắt buộc");  
 		}
 		else{
@@ -198,8 +203,13 @@ $(document).ready(function(){
 				}
 			}); 
 		} 
-		
-		  
 	});
+
+	$('.timkiem').keyup(function() {
+		var txt = $('.timkiem').val();
+		$.post('searchTest.php', {data: txt}, function (data) {
+			$('.danhsach').html(data);
+		})
+	})
 });
 </script>

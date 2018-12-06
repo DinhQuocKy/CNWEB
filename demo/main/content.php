@@ -86,17 +86,27 @@ class ContentList extends ContentSelectAll
 		$html = "";
 		$html .="<table class=\"table table-advance\" id=\"table1\">";
 		$html .= "<thead>";
-		$html .="<tr>";
-		$html .=$name;
-		$html .="</tr>";
+		$html .="<tr>".$name."</tr><br><br>";
+		include_once 'addItem.php';
+		// $html .='<tr><button type="button" class="btn btn-primary">Thêm</button></tr><br><br>';
+		// $html .='<tr><input type="text" class="timkiem form-control"></tr><br><br>';
 		$this->result = parent::execute($tablename);
 		$columncount = $this->result->columnCount();
-
+		$cnt = 0;
+		$html.="<tbody class=\"danhsach\">";
 		foreach($this->result as $array)
 		{	
+			if($cnt==0){
+				$html.="<tr>";
+			}
 			$nameItem = '<div style="text-align: center; color: blue; font-size: 20px;">'.$array[1].'</div>';
 			$PriceItem = '<div style="text-align: center; color: blue;">'.$array[2].' Đ</div>';
 			$html .= '<td style=\"text-align:center;\"><img src="../images/'.$array[5].'" height="200" width="200"><br>'.$nameItem.$PriceItem.'</td>';
+			if($cnt==3){
+				$html.="</tr>";
+				$cnt=0;
+			}
+			$cnt++;
 		}
 		$html .= "</tbody>";
 		$html .="</table><br><br><br>";

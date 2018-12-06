@@ -5,8 +5,8 @@
 	$tableName ='bill';
 	$maHD =$_POST['maHD'];
 	$maNV =$_POST['maNV'];
-	//$dataItems=$_POST['dataItems'];
-	print_r($_POST);
+	$dataItems=$_POST['data'];
+
 	$date = time();
 	$date=date('y/m/d',$date);
 	$html="";
