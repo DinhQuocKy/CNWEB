@@ -101,7 +101,7 @@ class ContentList extends ContentSelectAll
 			}
 			$nameItem = '<div style="text-align: center; color: blue; font-size: 20px;">'.$array[1].'</div>';
 			$PriceItem = '<div style="text-align: center; color: blue;">'.$array[2].' Đ</div>';
-			$html .= '<td style=\"text-align:center;\"><img src="../images/'.$array[5].'" height="200" width="200"><br>'.$nameItem.$PriceItem.'</td>';
+			$html .= '<td style="text-align:center;"><img src="../images/'.$array[5].'" height="200" width="200"><br>'.$nameItem.$PriceItem.'</td>';
 			if($cnt==3){
 				$html.="</tr>";
 				$cnt=0;
